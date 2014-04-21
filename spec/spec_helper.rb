@@ -8,6 +8,11 @@ ActiveRecord::Base.establish_connection(
 
 require 'simple_taggable'
 
+# Test Class
+class User < ActiveRecord::Base
+  include SimpleTaggable
+end
+
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Migrator.migrate File.expand_path("../db/migrate", __FILE__), nil
 

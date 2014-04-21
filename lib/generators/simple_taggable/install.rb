@@ -6,5 +6,6 @@ class SimpleTaggable::InstallGenerator < Rails::Generators::Base
   desc "This generator creates migrations for simple_taggable"
   def create_migration_file
     copy_file "create_tags.rb", "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_create_tags.rb"
+    copy_file "create_taggings.rb", "db/migrate/#{(Time.now.utc + 1).strftime("%Y%m%d%H%M%S")}_create_taggings.rb"
   end
 end
