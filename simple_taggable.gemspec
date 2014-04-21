@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "activerecord", "~> 4"
+  spec.add_runtime_dependency "activesupport", "~> 4"
   spec.add_runtime_dependency "railties", "~> 4"
 
   spec.add_development_dependency "bundler", "~> 1.6"
@@ -26,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "database_cleaner"
   spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "shoulda-matchers"
 end

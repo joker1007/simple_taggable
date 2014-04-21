@@ -19,6 +19,7 @@ ActiveRecord::Migrator.migrate File.expand_path("../db/migrate", __FILE__), nil
 I18n.enforce_available_locales = false # suppress warning
 
 require 'database_cleaner'
+require "shoulda-matchers"
 
 RSpec.configure do |config|
   config.order = :random
