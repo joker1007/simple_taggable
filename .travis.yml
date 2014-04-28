@@ -1,6 +1,10 @@
 language: ruby
 rvm:
   - 2.1.1
+  - 2.0.0
+
+before_script:
+  - bundle exec rake test:copy_migrations
 
 notifications:
   email:
