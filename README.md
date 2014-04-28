@@ -1,4 +1,7 @@
 # simple\_taggable
+[![Build Status](https://travis-ci.org/joker1007/simple_taggable.svg?branch=master)](https://travis-ci.org/joker1007/simple_taggable)
+[![Coverage Status](https://coveralls.io/repos/joker1007/simple_taggable/badge.png)](https://coveralls.io/r/joker1007/simple_taggable)
+[![Code Climate](https://codeclimate.com/github/joker1007/simple_taggable.png)](https://codeclimate.com/github/joker1007/simple_taggable)
 
 This is Hyper simple tagging plugin for ActiveRecord.
 
