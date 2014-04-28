@@ -11,6 +11,7 @@ module SimpleTaggable
       :size,
       :count,
       :include?,
+      :empty?,
       :clear,
       to: :raw_data
 
