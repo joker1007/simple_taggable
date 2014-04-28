@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = SimpleTaggable::VERSION
   spec.authors       = ["joker1007"]
   spec.email         = ["kakyoin.hierophant@gmail.com"]
-  spec.summary       = %q{Simple tagging plugin for ActiveRecord}
-  spec.description   = %q{Simple tagging plugin for ActiveRecord}
+  spec.summary       = %q{Hyper Simple tagging plugin for ActiveRecord}
+  spec.description   = %q{Hyper Simple tagging plugin for ActiveRecord}
   spec.homepage      = ""
   spec.license       = "MIT"
 

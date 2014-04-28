@@ -1,6 +1,6 @@
-# SimpleTaggable
+# simple\_taggable
 
-TODO: Write a gem description
+This is Hyper simple tagging plugin for ActiveRecord.
 
 ## Installation
 
@@ -18,7 +18,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class User < ActiveRecord::Base
+  include SimpleTaggable
+end
+
+user = User.new(name: "joker1007")
+user.tag_list.add("Ruby")
+user.tag_list << "CoffeeScript"
+user.save!
+
+# tagged_with scope
+User.tagged_with("Ruby")                # eq [user]
+User.tagged_with("Ruby", exclude: true) # eq []
+User.tagged_with("CoffeeScript")        # eq [user]
+
+User.tagged_with("Ruby", "CoffeeScript")                  # eq [user]
+User.tagged_with("Ruby", "CoffeeScript", exclude: true)   # eq []
+User.tagged_with("Ruby", "CoffeeScript", match_all: true) # eq [user]
+User.tagged_with("Ruby", "JavaScript")                    # eq [user]
+User.tagged_with("Ruby", "JavaScript", exclude: true)     # eq []
+User.tagged_with("Ruby", "JavaScript", match_all: true)   # eq []
+
+# Direct tag_list assign
+user.tag_list = "Ruby"
+
+# or
+
+user.tag_list = ["Ruby"]
+
+# or
+
+user.tag_list = SimpleTaggable::TagList.new("Ruby")
+```
 
 ## Contributing
 
