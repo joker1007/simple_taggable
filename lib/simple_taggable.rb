@@ -13,7 +13,7 @@ module SimpleTaggable
   extend ActiveSupport::Concern
 
   included do
-    has_many :taggings, as: :taggable, class_name: "SimpleTaggable::Models::Tagging"
+    has_many :taggings, as: :taggable, class_name: "SimpleTaggable::Models::Tagging", dependent: :destroy
     has_many :tags, through: :taggings, class_name: "SimpleTaggable::Models::Tag"
 
     scope :tagged_with, ->(*tag_name, match_all: false, exclude: false) {
