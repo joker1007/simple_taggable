@@ -1,4 +1,5 @@
 require "active_support/core_ext/module/delegation"
+require "active_support/core_ext/array"
 
 module SimpleTaggable
   class TagList
@@ -41,7 +42,7 @@ module SimpleTaggable
     alias :<< :add
 
     def to_a
-      @raw_data
+      @raw_data.deep_dup
     end
 
     private
