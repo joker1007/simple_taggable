@@ -65,6 +65,40 @@ describe SimpleTaggable do
         reloaded = User.find(joker1007.id)
         expect(reloaded.tag_list).to match_array SimpleTaggable::TagList.new("Tag1", "Tag2")
       end
+
+      describe "filters and converters" do
+        class TagFilteredUser < User
+          add_tag_filter ->(tag_list, tag) { tag != "FILTERED" }
+          add_tag_filter ->(tag_list, tag) { tag != "filtered" }
+        end
+
+        class TagConvertedUser < User
+          add_tag_filter ->(tag_list, tag) { tag != "FILTERED" }
+          add_tag_converter ->(tag_list, tag) { tag.upcase }
+          add_tag_converter ->(tag_list, tag) { tag.gsub(/FOO/, "BAR") }
+        end
+
+        class InheritedUser < TagConvertedUser
+          reset_tag_converters
+          add_tag_filter ->(tag_list, tag) { tag != "FILTERED" }
+          add_tag_converter ->(tag_list, tag) { tag.downcase }
+        end
+
+        it "use filter given add_tag_filter method, when initialize TagList" do
+          tag_filtered_user = TagFilteredUser.new(name: "jotaro")
+          tag_filtered_user.tag_list.add("Tag1", "FILTERED", "filtered")
+          expect(tag_filtered_user.tag_list).to match_array SimpleTaggable::TagList.new("Tag1")
+        end
+
+        it "use converter given add_tag_converter method, when initialize TagList" do
+          inherited_user = InheritedUser.new(name: "jotaro")
+          inherited_user.tag_list.add("Tag1", "FILTERED")
+          expect(inherited_user.tag_list).to match_array SimpleTaggable::TagList.new("tag1", "filtered")
+        end
+
+        it "inherit parent filters and converters" do
+        end
+      end
     end
 
     describe "#tag_list=" do

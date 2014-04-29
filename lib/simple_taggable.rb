@@ -33,8 +33,50 @@ module SimpleTaggable
     after_save :__sync_tags__
   end
 
+  module ClassMethods
+    def inherited(child)
+      super
+      child.instance_variable_set("@__tag_filters__", __tag_filters__.dup)
+      child.instance_variable_set("@__tag_converters__", __tag_converters__.dup)
+    end
+
+    def add_tag_filter(filter_proc, &block)
+      pr = filter_proc || block
+      self.__tag_filters__ << pr
+    end
+
+    def reset_tag_filters
+      __tag_filters__.clear
+    end
+
+    def add_tag_converter(converter_proc, &block)
+      pr = converter_proc || block
+      self.__tag_converters__ << pr
+    end
+
+    def reset_tag_converters
+      __tag_converters__.clear
+    end
+
+    # internal
+    def __tag_filters__
+      @__tag_filters__ ||= []
+      @__tag_filters__
+    end
+
+    # internal
+    def __tag_converters__
+      @__tag_converters__ ||= []
+      @__tag_converters__
+    end
+  end
+
   def tag_list
-    @tag_list ||= SimpleTaggable::TagList.new(tags.pluck(:name))
+    @tag_list ||= SimpleTaggable::TagList.new(
+      tags.pluck(:name),
+      filters: self.class.__tag_filters__,
+      converters: self.class.__tag_converters__,
+    )
   end
 
   def tag_list=(tag_list)
@@ -42,7 +84,11 @@ module SimpleTaggable
     when TagList
       @tag_list = tag_list
     when Array, String
-      @tag_list = SimpleTaggable::TagList.new(tag_list)
+      @tag_list = SimpleTaggable::TagList.new(
+        tag_list,
+        filters: self.class.__tag_filters__,
+        converters: self.class.__tag_converters__,
+      )
     else
       raise TypeError.new("tag_list is not TagList object")
     end
