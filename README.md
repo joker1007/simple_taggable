@@ -1,4 +1,5 @@
 # simple\_taggable
+[![Gem Version](https://badge.fury.io/rb/simple_taggable.svg)](http://badge.fury.io/rb/simple_taggable)
 [![Build Status](https://travis-ci.org/joker1007/simple_taggable.svg?branch=master)](https://travis-ci.org/joker1007/simple_taggable)
 [![Coverage Status](https://coveralls.io/repos/joker1007/simple_taggable/badge.png)](https://coveralls.io/r/joker1007/simple_taggable)
 [![Code Climate](https://codeclimate.com/github/joker1007/simple_taggable.png)](https://codeclimate.com/github/joker1007/simple_taggable)
@@ -24,6 +25,9 @@ Or install it yourself as:
 ```ruby
 class User < ActiveRecord::Base
   include SimpleTaggable
+
+  add_tag_filter    ->(tag_list, tag_name) { !tag_list.include?(tag_name) }
+  add_tag_converter ->(_, tag_name) { tag_name.downcase }
 end
 
 user = User.new(name: "joker1007")
