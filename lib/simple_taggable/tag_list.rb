@@ -14,6 +14,7 @@ module SimpleTaggable
       :include?,
       :empty?,
       :clear,
+      :to_s,
       to: :raw_data
 
     def initialize(*tags, filters: [], converters: [])
@@ -43,6 +44,10 @@ module SimpleTaggable
 
     def to_a
       @raw_data.deep_dup
+    end
+
+    def inspect
+      "SimpleTaggable::TagList#{raw_data.inspect}"
     end
 
     private
