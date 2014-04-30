@@ -17,6 +17,12 @@ module SimpleTaggable
       :to_s,
       to: :raw_data
 
+    class << self
+      def [](*tags)
+        new(*tags)
+      end
+    end
+
     def initialize(*tags, filters: [], converters: [])
       @raw_data = []
 

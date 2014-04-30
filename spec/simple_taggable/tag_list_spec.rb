@@ -13,6 +13,18 @@ describe SimpleTaggable::TagList do
       tag_list = SimpleTaggable::TagList.new("init1", "init2")
       expect(tag_list.length).to eq(2)
     end
+
+    it "should receive initial tags as Array" do
+      tag_list = SimpleTaggable::TagList.new(["init1", "init2"])
+      expect(tag_list.length).to eq(2)
+    end
+
+    describe "SimpleTaggable::TagList[tag]" do
+      it "creates instance" do
+        tag_list = SimpleTaggable::TagList["init1", "init2"]
+        expect(tag_list.length).to eq(2)
+      end
+    end
   end
 
   describe "#add" do
