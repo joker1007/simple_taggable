@@ -22,6 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
+```
+$ rails g simple_taggable:install
+# generate migration files of Tag, Taggable class
+
+$ rake db:migrate
+```
+
 ```ruby
 class User < ActiveRecord::Base
   include SimpleTaggable
