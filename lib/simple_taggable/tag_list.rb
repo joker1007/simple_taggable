@@ -1,5 +1,6 @@
 require "active_support/core_ext/module/delegation"
 require "active_support/core_ext/array"
+require "active_support/core_ext/object"
 
 module SimpleTaggable
   class TagList
