@@ -22,3 +22,4 @@ tmp
 mkmf.log
 
 spec/db/migrate
+gemfiles/*.lock
