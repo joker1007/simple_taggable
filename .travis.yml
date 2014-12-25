@@ -1,8 +1,11 @@
 language: ruby
+cache: bundler
 rvm:
   - 2.2.0
   - 2.1
   - 2.0
+
+sudo: false
 
 before_script:
   - bundle exec rake test:copy_migrations
