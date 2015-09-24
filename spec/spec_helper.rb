@@ -6,12 +6,14 @@ require "active_record"
 
 case ENV["DB"]
 when "postgres"
+  require "pg"
   ActiveRecord::Base.establish_connection(
     adapter: "postgresql",
     database: "simple_taggable",
     username: "postgres"
   )
 when "mysql"
+  require "mysql2"
   ActiveRecord::Base.establish_connection(
     adapter: "mysql2",
     database: "simple_taggable",
