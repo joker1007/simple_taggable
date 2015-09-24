@@ -25,7 +25,7 @@ module SimpleTaggable
         where.not(id: users.pluck(:id))
       else
         User.joins(:tags).merge(tag_scope).group(%W("#{table_name}"."id")).tap do |scope|
-          break scope.having("count(*) == ?", tag_name.length) if match_all
+          break scope.having("count(*) = ?", tag_name.length) if match_all
         end
       end
     }
