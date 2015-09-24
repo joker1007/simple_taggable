@@ -21,10 +21,10 @@ module SimpleTaggable
       tag_scope = SimpleTaggable::Models::Tag.where(name: tag_name)
 
       if exclude
-        users = User.joins(:tags).merge(tag_scope).group(%W("#{table_name}"."id"))
-        where.not(id: users.pluck(:id))
+        records = joins(:tags).merge(tag_scope).group(%W(#{quoted_table_name}.#{connection.quote_column_name("id")}))
+        where.not(id: records.pluck(:id))
       else
-        User.joins(:tags).merge(tag_scope).group(%W("#{table_name}"."id")).tap do |scope|
+        joins(:tags).merge(tag_scope).group(%W(#{quoted_table_name}.#{connection.quote_column_name("id")})).tap do |scope|
           break scope.having("count(*) = ?", tag_name.length) if match_all
         end
       end
