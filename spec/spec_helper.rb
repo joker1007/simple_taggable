@@ -4,10 +4,25 @@ Coveralls.wear!
 
 require "active_record"
 
-ActiveRecord::Base.establish_connection(
-  adapter: "sqlite3",
-  database: ":memory:"
-)
+case ENV["DB"]
+when "postgres"
+  ActiveRecord::Base.establish_connection(
+    adapter: "pg",
+    database: "simple_taggable",
+    username: "postgres"
+  )
+when "mysql"
+  ActiveRecord::Base.establish_connection(
+    adapter: "mysql2",
+    database: "simple_taggable",
+    username: "root"
+  )
+else
+  ActiveRecord::Base.establish_connection(
+    adapter: "sqlite3",
+    database: ":memory:"
+  )
+end
 
 require 'simple_taggable'
 

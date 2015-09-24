@@ -7,7 +7,14 @@ rvm:
   - 2.2
   - 2.1
 
+env:
+  - DB=postgres
+  - DB=mysql
+  - DB=sqlite3
+
 before_script:
+  - mysql -e 'create database simple_taggable;'
+  - psql -c 'create database simple_taggable;' -U postgres
   - bundle exec rake test:copy_migrations
 
 gemfile:
