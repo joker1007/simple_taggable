@@ -45,6 +45,17 @@ describe SimpleTaggable::TagList do
     end
   end
 
+  describe "#to_a" do
+    it "returns deep copied Array" do
+      tag_list = SimpleTaggable::TagList.new("init1", "init2")
+      arr = tag_list.to_a
+      expect(arr).to eq ["init1", "init2"]
+      arr[0].gsub!(/init/, "converted")
+      expect(tag_list[0]).to eq "init1"
+      expect(arr[0]).to eq "converted1"
+    end
+  end
+
   describe "Index access" do
     it "should return tag string" do
       tag_list.add("Tag1")

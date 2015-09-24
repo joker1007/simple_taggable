@@ -75,13 +75,16 @@ describe SimpleTaggable do
         class TagConvertedUser < User
           add_tag_filter ->(tag_list, tag) { tag != "FILTERED" }
           add_tag_converter ->(tag_list, tag) { tag.upcase }
-          add_tag_converter ->(tag_list, tag) { tag.gsub(/FOO/, "BAR") }
+          add_tag_converter ->(tag_list, tag) { tag.gsub(/foo/i, "BAR") }
         end
 
         class InheritedUser < TagConvertedUser
           reset_tag_converters
           add_tag_filter ->(tag_list, tag) { tag != "FILTERED" }
           add_tag_converter ->(tag_list, tag) { tag.downcase }
+        end
+
+        class InheritedUser2 < TagConvertedUser
         end
 
         it "use filter given add_tag_filter method, when initialize TagList" do
@@ -97,6 +100,9 @@ describe SimpleTaggable do
         end
 
         it "inherit parent filters and converters" do
+          inherited_user = InheritedUser2.new(name: "jotaro")
+          inherited_user.tag_list.add("Tag1", "FOO")
+          expect(inherited_user.tag_list).to match_array SimpleTaggable::TagList.new("TAG1", "BAR")
         end
       end
     end

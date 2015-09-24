@@ -81,9 +81,7 @@ module SimpleTaggable
 
   def tag_list=(tag_list)
     case tag_list
-    when TagList
-      @tag_list = tag_list
-    when Array, String
+    when TagList, Array, String
       @tag_list = SimpleTaggable::TagList.new(
         tag_list,
         filters: self.class.__tag_filters__,

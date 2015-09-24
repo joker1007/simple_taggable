@@ -30,7 +30,13 @@ module SimpleTaggable
       @filters = filters.freeze
       @converters = converters.freeze
 
-      tags.flatten.each {|tag| add(tag) }
+      tags.flatten.each do |tag|
+        if tag.is_a?(TagList)
+          tag.each { |t| add(t) }
+        else
+          add(tag)
+        end
+      end
     end
 
     def add(*tags)
@@ -40,6 +46,7 @@ module SimpleTaggable
         end
 
         if @filters.all? { |filter| filter.call(self, tag) }
+          tag.freeze
           @raw_data << tag
         end
       end
