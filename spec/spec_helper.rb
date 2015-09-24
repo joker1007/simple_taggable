@@ -2,10 +2,11 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require "coveralls"
 Coveralls.wear!
 
+require "active_record"
+
 case ENV["DB"]
 when "postgres"
   require "pg"
-  require "active_record"
   ActiveRecord::Base.establish_connection(
     adapter: "postgresql",
     database: "simple_taggable",
@@ -13,14 +14,12 @@ when "postgres"
   )
 when "mysql"
   require "mysql2"
-  require "active_record"
   ActiveRecord::Base.establish_connection(
     adapter: "mysql2",
     database: "simple_taggable",
     username: "root"
   )
 else
-  require "active_record"
   ActiveRecord::Base.establish_connection(
     adapter: "sqlite3",
     database: ":memory:"
