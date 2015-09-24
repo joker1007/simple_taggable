@@ -7,7 +7,7 @@ require "active_record"
 case ENV["DB"]
 when "postgres"
   ActiveRecord::Base.establish_connection(
-    adapter: "pg",
+    adapter: "postgresql",
     database: "simple_taggable",
     username: "postgres"
   )
