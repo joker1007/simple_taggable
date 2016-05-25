@@ -29,6 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "pg"
   spec.add_development_dependency "mysql2", "~> 0.3.0"
-  spec.add_development_dependency "shoulda-matchers"
+  spec.add_development_dependency "shoulda-matchers", "~> 3.1.0"
   spec.add_development_dependency "coveralls"
 end
