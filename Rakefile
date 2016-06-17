@@ -11,8 +11,14 @@ task :default => :spec
 namespace :test do
   desc "copy migrations to spec/db/migrate"
   task :copy_migrations => "spec/db/migrate" do
-    cp "lib/generators/templates/create_tags.rb", "spec/db/migrate/1_create_tags.rb"
-    cp "lib/generators/templates/create_taggings.rb", "spec/db/migrate/2_create_taggings.rb"
+    require 'active_record'
+    if ActiveRecord.version >= Gem::Version.new("5.0.0.beta")
+      cp "lib/generators/templates/create_tags_5.0.rb", "spec/db/migrate/1_create_tags.rb"
+      cp "lib/generators/templates/create_taggings_5.0.rb", "spec/db/migrate/2_create_taggings.rb"
+    else
+      cp "lib/generators/templates/create_tags.rb", "spec/db/migrate/1_create_tags.rb"
+      cp "lib/generators/templates/create_taggings.rb", "spec/db/migrate/2_create_taggings.rb"
+    end
   end
 
   directory "spec/db/migrate"
