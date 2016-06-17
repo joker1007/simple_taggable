@@ -4,8 +4,8 @@ sudo: false
 cache: bundler
 
 rvm:
-  - 2.2
-  - 2.1
+  - 2.3.1
+  - 2.2.5
 
 env:
   - DB=postgres
@@ -18,9 +18,9 @@ before_script:
   - bundle exec rake test:copy_migrations
 
 gemfile:
-  - gemfiles/rails_4.0.gemfile
   - gemfiles/rails_4.1.gemfile
   - gemfiles/rails_4.2.gemfile
+  - gemfiles/rails_5.0.gemfile
   - gemfiles/rails_edge.gemfile
 
 matrix:

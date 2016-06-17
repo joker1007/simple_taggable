@@ -10,6 +10,12 @@ appraise "rails-4.2" do
   gem "railties", "~> 4.2.0"
 end
 
+appraise "rails-5.0" do
+  gem "activerecord", "~> 5.0.0.rc"
+  gem "activesupport", "~> 5.0.0.rc"
+  gem "railties", "~> 5.0.0.rc"
+end
+
 appraise "rails-edge" do
   gem "activerecord", github: 'rails/rails'
   gem "activesupport", github: 'rails/rails'
