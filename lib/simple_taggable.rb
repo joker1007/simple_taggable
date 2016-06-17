@@ -19,13 +19,15 @@ module SimpleTaggable
     scope :tagged_with, ->(*tag_name, match_all: false, exclude: false) {
       raise "`tagged_with` cannot use :match_all and :exclude at the same time" if match_all && exclude
       tag_scope = SimpleTaggable::Models::Tag.where(name: tag_name)
+      records = joins(:tags).merge(tag_scope).uniq
 
       if exclude
-        records = joins(:tags).merge(tag_scope).group(%W(#{quoted_table_name}.#{connection.quote_column_name("id")}))
-        where.not(id: records.pluck(:id))
+        where.not(id: records.select(:id))
       else
-        joins(:tags).merge(tag_scope).group(%W(#{quoted_table_name}.#{connection.quote_column_name("id")})).tap do |scope|
-          break scope.having("count(*) = ?", tag_name.length) if match_all
+        if match_all
+          records.group(%W(#{quoted_table_name}.#{connection.quote_column_name("id")})).having("count(*) = ?", tag_name.length)
+        else
+          records
         end
       end
     }
