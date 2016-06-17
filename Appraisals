@@ -1,9 +1,3 @@
-appraise "rails-4.0" do
-  gem "activerecord", "~> 4.0.0"
-  gem "activesupport", "~> 4.0.0"
-  gem "railties", "~> 4.0.0"
-end
-
 appraise "rails-4.1" do
   gem "activerecord", "~> 4.1.0"
   gem "activesupport", "~> 4.1.0"
@@ -14,6 +8,12 @@ appraise "rails-4.2" do
   gem "activerecord", "~> 4.2.0"
   gem "activesupport", "~> 4.2.0"
   gem "railties", "~> 4.2.0"
+end
+
+appraise "rails-5.0" do
+  gem "activerecord", "~> 5.0.0.rc"
+  gem "activesupport", "~> 5.0.0.rc"
+  gem "railties", "~> 5.0.0.rc"
 end
 
 appraise "rails-edge" do
