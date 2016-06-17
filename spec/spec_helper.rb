@@ -68,4 +68,11 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.after(:suite) do
+    ActiveRecord::Base.connection.execute("drop table schema_migrations")
+    ActiveRecord::Base.connection.execute("drop table users")
+    ActiveRecord::Base.connection.execute("drop table taggings")
+    ActiveRecord::Base.connection.execute("drop table tags")
+  end
 end
